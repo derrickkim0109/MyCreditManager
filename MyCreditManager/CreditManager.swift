@@ -6,6 +6,7 @@
 //
 
 final class CreditManager {
+    private var school: [Student] = []
 
     func run() {
         print(ExplanatoryText.inputQuestList)
@@ -31,5 +32,42 @@ final class CreditManager {
         case .terminateProgram:
             break
         }
+    }
+
+    func registerStudent() {
+        print(ExplanatoryText.inputStudentName)
+
+        guard let typedName = readLine(),
+              checkNameValidation(typedName) else {
+            run()
+            return
+        }
+
+        let student = Student(name: typedName, grade: nil)
+        school.append(student)
+        run()
+    }
+
+    func checkNameValidation(_ name: String) -> Bool {
+        for student in school {
+            if student.name == name {
+                print(name + ExplanatoryText.duplicatedName)
+                return false
+            }
+        }
+
+        let numberValidation = checkNumberValidation(name)
+        return numberValidation
+    }
+
+    func checkNumberValidation(_ name: String) -> Bool {
+        for number in 0...9 {
+            if name.contains(String(number)) {
+                print(ExplanatoryText.commonWrongAnswer)
+                return false
+            }
+        }
+
+        return true
     }
 }
