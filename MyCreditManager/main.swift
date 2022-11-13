@@ -8,9 +8,7 @@
 import Foundation
 
 func run() {
-    print("원하는 기능을 입력해주세요.")
-    let inputValue = readLine()
-
+    print(ExplanatoryText.input)
 
 }
 
