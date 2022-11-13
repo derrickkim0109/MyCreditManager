@@ -10,6 +10,8 @@
 		901676F32920FFFF004BB79B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901676F22920FFFF004BB79B /* main.swift */; };
 		901676FA292106A0004BB79B /* QuestionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901676F9292106A0004BB79B /* QuestionList.swift */; };
 		901676FC292106A7004BB79B /* ExplanatoryText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901676FB292106A7004BB79B /* ExplanatoryText.swift */; };
+		901676FE29210798004BB79B /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901676FD29210798004BB79B /* Student.swift */; };
+		9016770029210A25004BB79B /* CreditManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901676FF29210A25004BB79B /* CreditManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +31,8 @@
 		901676F22920FFFF004BB79B /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		901676F9292106A0004BB79B /* QuestionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionList.swift; sourceTree = "<group>"; };
 		901676FB292106A7004BB79B /* ExplanatoryText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanatoryText.swift; sourceTree = "<group>"; };
+		901676FD29210798004BB79B /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		901676FF29210A25004BB79B /* CreditManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				901676F22920FFFF004BB79B /* main.swift */,
+				901676FF29210A25004BB79B /* CreditManager.swift */,
 				901676F9292106A0004BB79B /* QuestionList.swift */,
 				901676FB292106A7004BB79B /* ExplanatoryText.swift */,
+				901676FD29210798004BB79B /* Student.swift */,
 			);
 			path = MyCreditManager;
 			sourceTree = "<group>";
@@ -128,7 +134,9 @@
 			files = (
 				901676F32920FFFF004BB79B /* main.swift in Sources */,
 				901676FC292106A7004BB79B /* ExplanatoryText.swift in Sources */,
+				9016770029210A25004BB79B /* CreditManager.swift in Sources */,
 				901676FA292106A0004BB79B /* QuestionList.swift in Sources */,
+				901676FE29210798004BB79B /* Student.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

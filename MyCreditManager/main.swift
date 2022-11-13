@@ -7,15 +7,6 @@
 
 import Foundation
 
-func run() {
-    print(ExplanatoryText.input)
+let creditManager = CreditManager()
 
-    guard let number = readLine(),
-          let selectedQuestion = QuestionList(rawValue: number) else {
-        print(ExplanatoryText.wrongAnswer)
-        run()
-        return
-    }
-}
-
-run()
+creditManager.run()
