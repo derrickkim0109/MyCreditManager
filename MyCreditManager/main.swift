@@ -10,6 +10,12 @@ import Foundation
 func run() {
     print(ExplanatoryText.input)
 
+    guard let number = readLine(),
+          let selectedQuestion = QuestionList(rawValue: number) else {
+        print(ExplanatoryText.wrongAnswer)
+        run()
+        return
+    }
 }
 
-enum func
+run()
