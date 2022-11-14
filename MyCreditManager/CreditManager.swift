@@ -38,17 +38,18 @@ final class CreditManager {
         print(ExplanatoryText.inputStudentName)
 
         guard let typedName = readLine(),
-              checkNameValidation(typedName) else {
+              checkValidation(typedName) else {
             run()
             return
         }
 
         let student = Student(name: typedName, grade: nil)
         school.append(student)
+        print(typedName + ExplanatoryText.didAddStudentName)
         run()
     }
 
-    func checkNameValidation(_ name: String) -> Bool {
+    func checkValidation(_ name: String) -> Bool {
         for student in school {
             if student.name == name {
                 print(name + ExplanatoryText.duplicatedName)
@@ -56,13 +57,25 @@ final class CreditManager {
             }
         }
 
-        let numberValidation = checkNumberValidation(name)
-        return numberValidation
+        let numberAndLetterValidation = checkNumberValidation(name) && checkLetter(name)
+
+        return numberAndLetterValidation
     }
 
     func checkNumberValidation(_ name: String) -> Bool {
         for number in 0...9 {
             if name.contains(String(number)) {
+                print(ExplanatoryText.commonWrongAnswer)
+                return false
+            }
+        }
+
+        return true
+    }
+
+    func checkLetter(_ name: String) -> Bool {
+        for word in name {
+            if !word.isLetter {
                 print(ExplanatoryText.commonWrongAnswer)
                 return false
             }
