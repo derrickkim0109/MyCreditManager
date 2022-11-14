@@ -38,7 +38,7 @@ final class CreditManager {
         print(ExplanatoryText.inputStudentName)
 
         guard let typedName = readLine(),
-              checkValidation(typedName) else {
+              checkValidationForRegistering(typedName) else {
             run()
             return
         }
@@ -49,7 +49,7 @@ final class CreditManager {
         run()
     }
 
-    func checkValidation(_ name: String) -> Bool {
+    func checkValidationForRegistering(_ name: String) -> Bool {
         for student in school {
             if student.name == name {
                 print(name + ExplanatoryText.duplicatedName)
@@ -82,5 +82,35 @@ final class CreditManager {
         }
 
         return true
+    }
+
+    func removeStudentInfo() {
+        print(ExplanatoryText.inputStudentNameForRemoving)
+
+        guard let typedName = readLine(),
+              checkValidationForRemoving(typedName) else {
+            run()
+            return
+        }
+
+        for (index, student) in school.enumerated() {
+            if student.name == typedName {
+                school.remove(at: index)
+            }
+        }
+
+        print(typedName + ExplanatoryText.removeStudent)
+        run()
+    }
+
+    func checkValidationForRemoving(_ name: String) -> Bool {
+        for student in school {
+            if student.name == name {
+                return true
+            }
+        }
+
+        print(name + ExplanatoryText.notFindStudentName)
+        return false
     }
 }

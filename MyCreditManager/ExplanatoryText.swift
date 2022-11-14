@@ -15,4 +15,7 @@ enum ExplanatoryText {
     static let didAddStudentName = "학생을 추가하였습니다."
     static let commonWrongAnswer = "입력이 잘못되었습니다. 다시 확인해주세요."
     static let duplicatedName = "은/는 이미 존재하는 학생입니다. 추가하지 않습니다."
+    static let inputStudentNameForRemoving = "삭제할 학생의 이름을 입력해주세요."
+    static let removeStudent = " 학생을 삭제하였습니다."
+    static let notFindStudentName = " 학생을 찾지 못했습니다."
 }
