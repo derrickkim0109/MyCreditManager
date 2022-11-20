@@ -29,10 +29,20 @@ enum ExplanatoryText {
 """
 
     static let notStudent = "없는 학생입니다. 학생 추가를 통해 추가해주세요."
+    static let notFindGrade = "과목은 없습니다. 성적 추가를 통해 추가해주세요."
+
+    static let willRemoveGrade = """
+성적을 삭제할 학생의 이름, 과목 이름을 띄워쓰기로 구분하여 차례로 작성해주세요.
+입력예) Derrick Swift
+"""
 }
 
 extension ExplanatoryText {
     static func updateGrade(_ gradeName: String, _ grade: String ,_ studentName: String) {
         print("\(studentName) 학생의 \(gradeName) 과목이 \(grade)로 추가(변경)되었습니다.")
+    }
+
+    static func removeGrade(_ studentName: String, _ gradeName: String) {
+        print("\(studentName) 학생의 \(gradeName) 과목의 성적이 삭제되었습니다.")
     }
 }

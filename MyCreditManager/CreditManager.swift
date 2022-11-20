@@ -26,7 +26,7 @@ final class CreditManager {
         case .addAndUpdateGrade:
             addAndUpdateGrade()
         case .removeGrade:
-            break
+            removeGrade()
         case .average:
             break
         case .terminateProgram:
@@ -134,7 +134,8 @@ private extension CreditManager {
 private extension CreditManager {
     func addAndUpdateGrade() {
         print(ExplanatoryText.willUpdateGrade)
-        guard let typedNameAndGradeInfo = readLine()?.components(separatedBy: " ") else {
+        guard let typedNameAndGradeInfo = readLine()?.components(separatedBy: " "),
+              typedNameAndGradeInfo.count == 3 else {
             print(ExplanatoryText.commonWrongAnswer)
             run()
             return
@@ -145,26 +146,58 @@ private extension CreditManager {
             run()
         }
 
-        for (index, student) in school.enumerated() {
-            if student.name == typedNameAndGradeInfo[0] {
-                if school[index].grade?[typedNameAndGradeInfo[1]] != nil {
-                    school[index].grade?[typedNameAndGradeInfo[1]] =
-                                            Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f
-                } else {
-                    school[index].grade = [typedNameAndGradeInfo[1]:
-                                            Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f]
-
-                }
-
-                ExplanatoryText.updateGrade(typedNameAndGradeInfo[1], typedNameAndGradeInfo[2], typedNameAndGradeInfo[0])
-                
+        for (index, _) in school.enumerated() {
+            guard findSameName(typedNameAndGradeInfo[0]) else {
+                print(ExplanatoryText.notStudent)
                 run()
                 return
+            }
+
+            if school[index].grade?[typedNameAndGradeInfo[1]] != nil {
+                school[index].grade?[typedNameAndGradeInfo[1]] =
+                                        Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f
             } else {
-                print(ExplanatoryText.notStudent)
+                school[index].grade = [typedNameAndGradeInfo[1]:
+                                        Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f]
+
+            }
+
+            ExplanatoryText.updateGrade(typedNameAndGradeInfo[1], typedNameAndGradeInfo[2], typedNameAndGradeInfo[0])
+
+            run()
+            return
+        }
+    }
+}
+
+
+// MARK: Remove Student Grade
+private extension CreditManager {
+    func removeGrade() {
+        print(ExplanatoryText.willRemoveGrade)
+
+        guard let typedNameAndGradeInfo = readLine()?.components(separatedBy: " "),
+              typedNameAndGradeInfo.count == 2 else {
+            print(ExplanatoryText.commonWrongAnswer)
+            run()
+            return
+        }
+
+        for (index, _) in school.enumerated() {
+            guard findSameName(typedNameAndGradeInfo[0]) else  {
+                print(typedNameAndGradeInfo[0] + ExplanatoryText.notFindStudentName)
+                run()
+                return
+            }
+
+            if school[index].grade?[typedNameAndGradeInfo[1]] != nil {
+                ExplanatoryText.removeGrade(typedNameAndGradeInfo[0], typedNameAndGradeInfo[1])
+                school[index].grade?.removeValue(forKey: typedNameAndGradeInfo[1])
+                run()
+            } else {
+                print(typedNameAndGradeInfo[1] + ExplanatoryText.notFindGrade)
                 run()
             }
         }
     }
 }
-
