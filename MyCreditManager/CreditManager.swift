@@ -9,7 +9,7 @@ final class CreditManager {
     private var school: [Student] = []
 
     func run() {
-        print(ExplanatoryText.inputQuestList)
+        print(ExplanatoryText.inputQuestionList)
 
         guard let number = readLine(),
               let selectedQuestion = QuestionList(rawValue: number) else {
@@ -19,12 +19,12 @@ final class CreditManager {
         }
 
         switch selectedQuestion {
-        case .registerStudent:
-            registerStudent()
+        case .addStudent:
+            addStudent()
         case .removeStudentInfo:
             removeStudentInfo()
         case .addAndUpdateGrade:
-            break
+            addAndUpdateGrade()
         case .removeGrade:
             break
         case .average:
@@ -34,11 +34,25 @@ final class CreditManager {
         }
     }
 
-    func registerStudent() {
+    private func findSameName(_ name: String) -> Bool {
+        for student in school {
+            if student.name == name {
+                return true
+            }
+        }
+
+        return false
+    }
+}
+
+// MARK: Add Student
+
+private extension CreditManager {
+    func addStudent() {
         print(ExplanatoryText.inputStudentName)
 
         guard let typedName = readLine(),
-              checkValidationForRegistering(typedName) else {
+              checkValidationForAdding(typedName) else {
             run()
             return
         }
@@ -49,12 +63,10 @@ final class CreditManager {
         run()
     }
 
-    func checkValidationForRegistering(_ name: String) -> Bool {
-        for student in school {
-            if student.name == name {
-                print(name + ExplanatoryText.duplicatedName)
-                return false
-            }
+    func checkValidationForAdding(_ name: String) -> Bool {
+        if findSameName(name) {
+            print(name + ExplanatoryText.duplicatedName)
+            return false
         }
 
         let numberAndLetterValidation = checkNumberValidation(name) && checkLetter(name)
@@ -83,7 +95,11 @@ final class CreditManager {
 
         return true
     }
+}
 
+// MARK: Remove Student
+
+private extension CreditManager {
     func removeStudentInfo() {
         print(ExplanatoryText.inputStudentNameForRemoving)
 
@@ -104,13 +120,51 @@ final class CreditManager {
     }
 
     func checkValidationForRemoving(_ name: String) -> Bool {
-        for student in school {
-            if student.name == name {
-                return true
-            }
+        if findSameName(name) {
+            return true
         }
 
         print(name + ExplanatoryText.notFindStudentName)
         return false
     }
 }
+
+// MARK: Add & Update Student Grade
+
+private extension CreditManager {
+    func addAndUpdateGrade() {
+        print(ExplanatoryText.willUpdateGrade)
+        guard let typedNameAndGradeInfo = readLine()?.components(separatedBy: " ") else {
+            print(ExplanatoryText.commonWrongAnswer)
+            run()
+            return
+        }
+
+        if school.count == 0 {
+            print(ExplanatoryText.notStudent)
+            run()
+        }
+
+        for (index, student) in school.enumerated() {
+            if student.name == typedNameAndGradeInfo[0] {
+                if school[index].grade?[typedNameAndGradeInfo[1]] != nil {
+                    school[index].grade?[typedNameAndGradeInfo[1]] =
+                                            Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f
+                } else {
+                    school[index].grade = [typedNameAndGradeInfo[1]:
+                                            Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f]
+
+                }
+
+                ExplanatoryText.updateGrade(typedNameAndGradeInfo[1], typedNameAndGradeInfo[2], typedNameAndGradeInfo[0])
+                
+                run()
+                return
+            } else {
+                print(ExplanatoryText.notStudent)
+                run()
+            }
+        }
+    }
+}
+

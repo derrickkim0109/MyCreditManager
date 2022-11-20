@@ -6,7 +6,7 @@
 //
 
 enum QuestionList: String {
-    case registerStudent = "1"
+    case addStudent = "1"
     case removeStudentInfo = "2"
     case addAndUpdateGrade = "3"
     case removeGrade = "4"
