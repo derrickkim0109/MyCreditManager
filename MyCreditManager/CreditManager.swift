@@ -28,9 +28,9 @@ final class CreditManager {
         case .removeGrade:
             removeGrade()
         case .average:
-            break
+            setupGradeAverage()
         case .terminateProgram:
-            break
+            ExplanatoryText.terminateProgram()
         }
     }
 
@@ -38,6 +38,8 @@ final class CreditManager {
         for student in school {
             if student.name == name {
                 return true
+            } else {
+                print(name + ExplanatoryText.notFindStudentName)
             }
         }
 
@@ -57,7 +59,7 @@ private extension CreditManager {
             return
         }
 
-        let student = Student(name: typedName, grade: nil)
+        let student = Student(name: typedName, grade: [:])
         school.append(student)
         print(typedName + ExplanatoryText.didAddStudentName)
         run()
@@ -104,7 +106,7 @@ private extension CreditManager {
         print(ExplanatoryText.inputStudentNameForRemoving)
 
         guard let typedName = readLine(),
-              checkValidationForRemoving(typedName) else {
+              findSameName(typedName) else {
             run()
             return
         }
@@ -117,15 +119,6 @@ private extension CreditManager {
 
         print(typedName + ExplanatoryText.removeStudent)
         run()
-    }
-
-    func checkValidationForRemoving(_ name: String) -> Bool {
-        if findSameName(name) {
-            return true
-        }
-
-        print(name + ExplanatoryText.notFindStudentName)
-        return false
     }
 }
 
@@ -153,23 +146,16 @@ private extension CreditManager {
                 return
             }
 
-            if school[index].grade?[typedNameAndGradeInfo[1]] != nil {
-                school[index].grade?[typedNameAndGradeInfo[1]] =
-                                        Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f
-            } else {
-                school[index].grade = [typedNameAndGradeInfo[1]:
-                                        Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f]
+            school[index].grade.updateValue(Grade(rawValue: typedNameAndGradeInfo[2]) ?? .f, forKey: typedNameAndGradeInfo[1])
 
-            }
+            print(school[index].grade)
 
             ExplanatoryText.updateGrade(typedNameAndGradeInfo[1], typedNameAndGradeInfo[2], typedNameAndGradeInfo[0])
 
             run()
-            return
         }
     }
 }
-
 
 // MARK: Remove Student Grade
 private extension CreditManager {
@@ -185,19 +171,54 @@ private extension CreditManager {
 
         for (index, _) in school.enumerated() {
             guard findSameName(typedNameAndGradeInfo[0]) else  {
-                print(typedNameAndGradeInfo[0] + ExplanatoryText.notFindStudentName)
                 run()
                 return
             }
 
-            if school[index].grade?[typedNameAndGradeInfo[1]] != nil {
+            if school[index].grade[typedNameAndGradeInfo[1]] != nil {
                 ExplanatoryText.removeGrade(typedNameAndGradeInfo[0], typedNameAndGradeInfo[1])
-                school[index].grade?.removeValue(forKey: typedNameAndGradeInfo[1])
+
+                school[index].grade.removeValue(forKey: typedNameAndGradeInfo[1])
                 run()
             } else {
                 print(typedNameAndGradeInfo[1] + ExplanatoryText.notFindGrade)
                 run()
             }
         }
+    }
+}
+
+// MARK: Grade Average
+
+private extension CreditManager {
+    func setupGradeAverage() {
+        print(ExplanatoryText.findStudentGradeAverage)
+
+        for student in school {
+            guard let typedName = readLine(),
+                  findSameName(typedName) else {
+                run()
+                return
+            }
+
+            let grades = student.grade
+            setupGrades(grades)
+        }
+
+        run()
+    }
+
+    func setupGrades(_ grades: [String: Grade]) {
+        var totalValue = 0.0
+        for (gradeName, grade) in grades {
+            print(gradeName, ":", grade.rawValue)
+            totalValue += grade.value
+        }
+
+        setupTotalAverage(totalValue, gradeCount: grades.count)
+    }
+
+    func setupTotalAverage(_ totalGrade: Double, gradeCount: Int) {
+        print(ExplanatoryText.gradeAverage, totalGrade / Double(gradeCount))
     }
 }

@@ -35,6 +35,11 @@ enum ExplanatoryText {
 성적을 삭제할 학생의 이름, 과목 이름을 띄워쓰기로 구분하여 차례로 작성해주세요.
 입력예) Derrick Swift
 """
+
+    static let findStudentGradeAverage = "평점을 알고싶은 학생의 이름을 입력하세요."
+    static let gradeAverage = "평점 : "
+
+    static let terminator = "프로그램을 종료합니다..."
 }
 
 extension ExplanatoryText {
@@ -44,5 +49,9 @@ extension ExplanatoryText {
 
     static func removeGrade(_ studentName: String, _ gradeName: String) {
         print("\(studentName) 학생의 \(gradeName) 과목의 성적이 삭제되었습니다.")
+    }
+
+    static func terminateProgram() {
+        print(ExplanatoryText.terminator)
     }
 }

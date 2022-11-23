@@ -9,7 +9,7 @@ import Foundation
 
 struct Student {
     let name: String
-    var grade: [String: Grade]?
+    var grade: [String: Grade] = [:]
 }
 
 enum Grade: String {
